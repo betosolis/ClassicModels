@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="Example07JPA">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>org.websamples.domain.Customer</class>
+		<class>org.websamples.domain.Employee</class>
+		<class>org.websamples.domain.Office</class>
+		<class>org.websamples.domain.Order</class>
+		<class>org.websamples.domain.Orderdetail</class>
+		<class>org.websamples.domain.OrderdetalPK</class>
+		<class>org.websamples.domain.Payment</class>
+		<class>org.websamples.domain.Product</class>
+		<class>org.websamples.domain.Productline</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+
+		</properties>
+	</persistence-unit>
+</persistence>

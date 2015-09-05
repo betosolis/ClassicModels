@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <context:component-scan base-package="org.websamples.dao"/>
+    
+    <context:property-placeholder location="/WEB-INF/database.example.properties" />
+    
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
+       <property name="url" value="${database.example.url}" ></property>
+       <property name="username" value="${database.example.user}"></property>
+       <property name="password" value="${database.example.password}"></property>
+       <property name="driverClassName" value="${database.example.driverClassName}" ></property>
+       <property name="minIdle" value="${database.example.minIdle}" ></property>
+       <property name="maxActive" value="${database.example.maxActive}" ></property>
+    </bean>
+    
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
+       <property name="dataSource" ref="dataSource" />
+       <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
+       <property name="jpaVendorAdapter" ref="vendorAdapter" />
+    </bean>
+    
+    <bean id="vendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" >
+       <property name="generateDdl" value="false" />
+       <property name="databasePlatform" value="${database.example.dialect}"/>
+       <property name="showSql"  value="${database.example.showSQL}"/>
+    </bean>
+    
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" >
+      <property name="entityManagerFactory" ref="entityManagerFactory" ></property>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans>
